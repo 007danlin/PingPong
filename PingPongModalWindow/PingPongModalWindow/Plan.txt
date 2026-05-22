@@ -1,0 +1,4 @@
+﻿Создать интерфейсы IRocket, IBall, ISystem
+Классами наследниками будут являться: 
+	1. Цвета ракеток(RocketRed, RocketGreen, RocketBlack)
+	2. Скорости мячиков (SlowBall, MEdiumBall, FastBall)
