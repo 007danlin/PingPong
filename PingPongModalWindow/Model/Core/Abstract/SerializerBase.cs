@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model.Core.Abstract
 {
-    internal class SerializerBase
+    internal abstract class SerializerBase
     {
     }
 }

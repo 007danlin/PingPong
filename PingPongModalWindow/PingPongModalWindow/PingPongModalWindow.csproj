@@ -97,5 +97,8 @@
   <ItemGroup>
     <Resource Include="Plan.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

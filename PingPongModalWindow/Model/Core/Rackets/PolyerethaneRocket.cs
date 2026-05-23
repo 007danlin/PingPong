@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.Core.Abstract
+namespace Model.Core.Rackets
 {
-    internal abstract class RacketBase
+    internal class PolyerethaneRocket
     {
     }
 }
