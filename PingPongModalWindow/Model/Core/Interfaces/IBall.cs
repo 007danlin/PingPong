@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Model.Core.Interfaces
 {
-    internal interface IBall
+    public interface IBall
     {
+        double Speed { get; set; }
+        double Angle { get; set; }
+
+        double X { get; set; }
+        double Y { get; set; }
+
+        double Radius { get; }
+
+        void Bounce(bool fromVertical);
     }
 }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Model.Core.Interfaces
 {
-    internal interface IGameField
+    public interface IGameField
     {
+        int Width { get; set; }
+        int Height { get; set; }
     }
 }
