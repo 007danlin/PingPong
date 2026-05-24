@@ -6,7 +6,66 @@
         xmlns:local="clr-namespace:PingPongModalWindow"
         mc:Ignorable="d"
         Title="Window1" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0" Margin="10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock x:Name="tbPlayer1"
+                       Grid.Column="0"
+                       Text="Игрок 1:"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Left"/>
+
+			<TextBlock x:Name="tbPlayer2"
+                       Grid.Column="1"
+                       Text="Игрок 2:"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Right"/>
+		</Grid>
+
+		<Border Grid.Row="1"
+                BorderBrush="Black"
+                BorderThickness="2"
+                Margin="10"
+                Background="White">
+			<Canvas x:Name="gameArea" Background="White">
+				<Rectangle x:Name="leftRacket"
+                           Width="12"
+                           Height="80"
+                           Fill="Blue"
+                           Canvas.Left="30"
+                           Canvas.Top="150"/>
+
+				<Rectangle x:Name="rightRacket"
+                           Width="12"
+                           Height="80"
+                           Fill="Green"
+                           Canvas.Left="740"
+                           Canvas.Top="150"/>
+
+				<Ellipse x:Name="ball"
+                         Width="18"
+                         Height="18"
+                         Fill="Red"
+                         Canvas.Left="390"
+                         Canvas.Top="190"/>
+			</Canvas>
+		</Border>
+
+		<TextBlock Grid.Row="2"
+                   Margin="10"
+                   Text="Управление: для подачи - пробел, игрок 1 - стрелки, игрок 2 - W/S"
+                   FontSize="14"/>
+	</Grid>
 </Window>
