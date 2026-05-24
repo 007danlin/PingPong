@@ -9,9 +9,9 @@
 		ResizeMode="NoResize">
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition/>
-			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="45"/>
+			<RowDefinition Height="310"/>
+			<RowDefinition Height="45"/>
 		</Grid.RowDefinitions>
 
 		<Grid Grid.Row="0" Margin="10">
@@ -22,14 +22,14 @@
 
 			<TextBlock x:Name="tbPlayer1"
                        Grid.Column="0"
-                       Text="Игрок 1:"
+                       Text="Игрок 1: 0"
                        FontSize="20"
                        FontWeight="Bold"
                        HorizontalAlignment="Left"/>
 
 			<TextBlock x:Name="tbPlayer2"
                        Grid.Column="1"
-                       Text="Игрок 2:"
+                       Text="Игрок 2: 0"
                        FontSize="20"
                        FontWeight="Bold"
                        HorizontalAlignment="Right"/>
@@ -43,24 +43,24 @@
 			<Canvas x:Name="gameArea" Background="White">
 				<Rectangle x:Name="leftRacket"
                            Width="12"
-                           Height="80"
+                           Height="70"
                            Fill="Blue"
                            Canvas.Left="30"
-                           Canvas.Top="150"/>
+                           Canvas.Top="108"/>
 
 				<Rectangle x:Name="rightRacket"
                            Width="12"
-                           Height="80"
+                           Height="70"
                            Fill="Green"
-                           Canvas.Left="740"
-                           Canvas.Top="150"/>
+                           Canvas.Left="720"
+                           Canvas.Top="108"/>
 
 				<Ellipse x:Name="ball"
                          Width="18"
                          Height="18"
                          Fill="Red"
-                         Canvas.Left="390"
-                         Canvas.Top="190"/>
+                         Canvas.Left="375"
+                         Canvas.Top="134"/>
 			</Canvas>
 		</Border>
 
