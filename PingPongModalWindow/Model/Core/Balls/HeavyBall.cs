@@ -2,19 +2,19 @@
 
 namespace Model.Core.Balls
 {
-    public class FastBall : BallBase
+    public class HeavyBall : BallBase
     {
-        public FastBall()
+        public HeavyBall()
         {
-            Speed = 7;
+            Speed = 4;
             Angle = 0;
-            Radius = 8;
+            Radius = 11;
         }
 
         public override void Bounce(bool fromVertical)
         {
             base.Bounce(fromVertical);
-            Speed = Speed * 1.02;
+            Speed = Speed * 0.98;
         }
     }
 }
