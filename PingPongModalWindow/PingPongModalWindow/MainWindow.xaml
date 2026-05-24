@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PingPongModalWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="320" Width="600"
+        ResizeMode="NoResize">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -16,13 +17,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0"
-                   Text="PingPong"
-                   FontSize="22"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Text="PingPong" FontSize="22" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,15" />
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
             <TextBlock Text="Режим:" Width="130" VerticalAlignment="Center"/>
             <ComboBox x:Name="playersComboBox" Width="140" SelectedIndex="0">
                 <ComboBoxItem Content="1 игрок"/>
@@ -36,7 +34,7 @@
             </ComboBox>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
             <TextBlock Text="Ракетка 1:" Width="130" VerticalAlignment="Center"/>
             <ComboBox x:Name="racket1ComboBox" Width="140" SelectedIndex="0">
                 <ComboBoxItem Content="Деревянная"/>
@@ -52,7 +50,7 @@
             </ComboBox>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,10">
             <TextBlock Text="Мяч:" Width="130" VerticalAlignment="Center"/>
             <ComboBox x:Name="BallComboBox" Width="140" SelectedIndex="0">
                 <ComboBoxItem Content="Стандартный"/>
@@ -66,7 +64,7 @@
             </ComboBox>
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal">
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,0,0,10">
             <TextBlock Text="Папка:" Width="130" VerticalAlignment="Center"/>
             <TextBox x:Name="FolderPathBox" Width="300" IsReadOnly="True"/>
             <Button x:Name="ChooseFolderButton" Content="Обзор" Width="80" Margin="10,0,0,0"/>
