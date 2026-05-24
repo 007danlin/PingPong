@@ -1,12 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Model.Core.Abstract;
 
 namespace Model.Core
 {
-    internal class Player
+    public class Player
     {
+        private int _score;
+
+        public string Name { get; set; }
+        public RacketBase Racket { get; set; }
+        public int Score
+        {
+            get
+            {
+                return _score;
+            }
+            private set
+            {
+                _score = value;
+            }
+        }
+
+        public Player(string name, RacketBase racket)
+        {
+            Name = name;
+            Racket = racket;
+            Score = 0;
+        }
+
+        public void AddPoint()
+        {
+            Score++;
+        }
+
+        public void ResetScore()
+        {
+            Score = 0;
+        }
     }
 }
