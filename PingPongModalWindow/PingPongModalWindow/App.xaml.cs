@@ -8,9 +8,6 @@ using System.Windows;
 
 namespace PingPongModalWindow
 {
-    /// <summary>
-    /// Логика взаимодействия для App.xaml
-    /// </summary>
     public partial class App : Application
     {
     }

@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:PingPongModalWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Margin="20,10,20,10">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -15,129 +16,65 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="0,0,0,15">
-            <TextBlock Text="Ping Pong" 
-                   FontWeight="Bold" 
-                   FontSize="28" 
-                   VerticalAlignment="Center" 
-                   HorizontalAlignment="Center"/>
-        </StackPanel>
+        <TextBlock Grid.Row="0"
+                   Text="PingPong"
+                   FontSize="22"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
 
-        <!-- Игроки + Цвет ракеток -->
-        <StackPanel Grid.Row="1" 
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                Margin="0,0,0,10">
-
-            <TextBlock Text="Количество игроков:" 
-                   VerticalAlignment="Center"
-                   FontSize="16"
-                   Margin="0,0,8,0"/>
-
-            <ComboBox Width="180" 
-                  SelectedIndex="0"
-                  VerticalAlignment="Center">
-                <ComboBoxItem Content="1 игрок (игра с ботом)"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="Режим:" Width="130" VerticalAlignment="Center"/>
+            <ComboBox x:Name="playersComboBox" Width="140" SelectedIndex="0">
+                <ComboBoxItem Content="1 игрок"/>
                 <ComboBoxItem Content="2 игрока"/>
             </ComboBox>
 
-            <TextBlock Text="Цвет ракеток:" 
-                   VerticalAlignment="Center"
-                   FontSize="16"
-                   Margin="20,0,8,0"/>
-
-            <ComboBox Width="130" 
-                  SelectedIndex="0"
-                  VerticalAlignment="Center">
-                <ComboBoxItem Content="Красный"/>
-                <ComboBoxItem Content="Черный"/>
-                <ComboBoxItem Content="Зелёный"/>
+            <TextBlock Text="Очки:" Width="80" Margin="20,0,0,0" VerticalAlignment="Center"/>
+            <ComboBox x:Name="pointsComboBox" Width="80" SelectedIndex="0">
+                <ComboBoxItem Content="11"/>
+                <ComboBoxItem Content="21"/>
             </ComboBox>
         </StackPanel>
 
-        <!-- Скорость мяча -->
-        <StackPanel Grid.Row="2" 
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                Margin="0,0,0,10">
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBlock Text="Ракетка 1:" Width="130" VerticalAlignment="Center"/>
+            <ComboBox x:Name="racket1ComboBox" Width="140" SelectedIndex="0">
+                <ComboBoxItem Content="Деревянная"/>
+                <ComboBoxItem Content="Кожаная"/>
+                <ComboBoxItem Content="Полиуретановая"/>
+            </ComboBox>
 
-            <TextBlock Text="Скорость мяча:" 
-                   VerticalAlignment="Center"
-                   FontSize="16"
-                   Margin="0,0,8,0"/>
-
-            <ComboBox Width="180" 
-                  SelectedIndex="0"
-                  VerticalAlignment="Center">
-                <ComboBoxItem Content="Низкая"/>
-                <ComboBoxItem Content="Средняя"/>
-                <ComboBoxItem Content="Высокая"/>
+            <TextBlock Text="Ракетка 2:" Width="80" Margin="20,0,0,0" VerticalAlignment="Center"/>
+            <ComboBox x:Name="racket2ComboBox" Width="140" SelectedIndex="0">
+                <ComboBoxItem Content="Деревянная"/>
+                <ComboBoxItem Content="Кожаная"/>
+                <ComboBoxItem Content="Полиуретановая"/>
             </ComboBox>
         </StackPanel>
 
-        <!-- Папка сохранения -->
-        <StackPanel Grid.Row="3" 
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                Margin="0,0,0,15">
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <TextBlock Text="Мяч:" Width="130" VerticalAlignment="Center"/>
+            <ComboBox x:Name="BallComboBox" Width="140" SelectedIndex="0">
+                <ComboBoxItem Content="Стандартный"/>
+                <ComboBoxItem Content="Тяжелый"/>
+            </ComboBox>
 
-            <TextBlock Text="Папка сохранения прогресса:" 
-                   VerticalAlignment="Center"
-                   FontSize="16"
-                   Margin="0,0,8,0"/>
-
-            <TextBox x:Name="FolderPathBox"
-                 Width="230"
-                 VerticalAlignment="Center"
-                 IsReadOnly="True"
-                 Margin="0,0,6,0"/>
-
-            <Button Content="Обзор..."
-                VerticalAlignment="Center"
-                Width="70"/>
+            <TextBlock Text="Формат:" Width="80" Margin="20,0,0,0" VerticalAlignment="Center"/>
+            <ComboBox x:Name="SaveFormatComboBox" Width="80" SelectedIndex="0">
+                <ComboBoxItem Content="JSON"/>
+                <ComboBoxItem Content="XML"/>
+            </ComboBox>
         </StackPanel>
 
-        <!-- Кнопка Начать игру -->
-        <StackPanel Grid.Row="4" 
-                HorizontalAlignment="Center"
-                Margin="0,5,0,10">
-
-            <Button Content="Начать игру"
-                Width="200"
-                Height="50"
-                FontSize="25"
-                FontWeight="Bold">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#2E7D32"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="BorderBrush" Value="#1B5E20"/>
-                        <Setter Property="BorderThickness" Value="2"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                        CornerRadius="10">
-                                        <ContentPresenter HorizontalAlignment="Center"
-                                                      VerticalAlignment="Center"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#388E3C"/>
-                                        </Trigger>
-                                        <Trigger Property="IsPressed" Value="True">
-                                            <Setter Property="Background" Value="#1B5E20"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <TextBlock Text="Папка:" Width="130" VerticalAlignment="Center"/>
+            <TextBox x:Name="FolderPathBox" Width="300" IsReadOnly="True"/>
+            <Button x:Name="ChooseFolderButton" Content="Обзор" Width="80" Margin="10,0,0,0"/>
         </StackPanel>
 
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="NewGameButton" Content="Новая игра" Width="140" Height="35" Margin="5"/>
+            <Button x:Name="ContinueGameButton" Content="Продолжить игру" Width="140" Height="35" Margin="5"/>
+        </StackPanel>
     </Grid>
 </Window>
