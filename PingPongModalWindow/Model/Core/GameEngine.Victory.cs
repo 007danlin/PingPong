@@ -9,12 +9,14 @@
             if (ScorePlayer1 >= MaxScore && ScorePlayer1 - ScorePlayer2 >= 2)
             {
                 Stop();
-                OnGameOver?.Invoke("Игрок 1");
+                if (OnGameOver != null)
+                    OnGameOver("Игрок 1");
             }
             else if (ScorePlayer2 >= MaxScore && ScorePlayer2 - ScorePlayer1 >= 2)
             {
                 Stop();
-                OnGameOver?.Invoke("Игрок 2");
+                if (OnGameOver != null)
+                    OnGameOver("Игрок 2");
             }
         }
 
