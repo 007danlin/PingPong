@@ -70,12 +70,12 @@
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,0,0,25">
             <TextBlock Text="Папка:" Width="150" FontSize="16" VerticalAlignment="Center"/>
             <TextBox x:Name="FolderPathBox" Width="390" Height="28" IsReadOnly="True"/>
-            <Button x:Name="ChooseFolderButton" Content="Обзор" Width="90" Height="28" Margin="10,0,0,0"/>
+            <Button x:Name="ChooseFolderButton" Content="Обзор" Width="90" Height="28" Margin="10,0,0,0" Click="ChooseFolderButton_Click"/>
         </StackPanel>
 
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="NewGameButton" Content="Новая игра" Width="160" Height="40" Margin="10"/>
-            <Button x:Name="ContinueGameButton" Content="Продолжить игру" Width="160" Height="40" Margin="10"/>
+            <Button x:Name="NewGameButton" Content="Новая игра" Width="160" Height="40" Margin="10" Click="NewGameButton_Click"/>
+            <Button x:Name="ContinueGameButton" Content="Продолжить игру" Width="160" Height="40" Margin="10" Click="ContinueGameButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
