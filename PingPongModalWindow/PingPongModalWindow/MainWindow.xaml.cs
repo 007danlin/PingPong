@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Win32;
+using Model.Core;
+using Model.Core.Abstract;
+using Model.Core.Balls;
+using Model.Core.Rackets;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.IO;
 
 namespace PingPongModalWindow
 {
@@ -20,6 +13,64 @@ namespace PingPongModalWindow
         public MainWindow()
         {
             InitializeComponent();
+            ContinueGameButton.IsEnabled = false;
+        }
+
+        private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                FolderPathBox.Text = dialog.SelectedPath;
+                string savePath = Path.Combine(dialog.SelectedPath, "save.json");
+                ContinueGameButton.IsEnabled = File.Exists(savePath);
+            }
+        }
+
+        private RacketBase GetRacket(int index)
+        {
+            switch (index)
+            {
+                case 0: return new WoodenRacket();
+                case 1: return new LeatherRacket();
+                case 2: return new PolyurethaneRacket();
+                default: return new WoodenRacket();
+            }
+        }
+
+        private BallBase GetBall(int index)
+        {
+            switch (index)
+            {
+                case 0: return new StandardBall();
+                case 1: return new HeavyBall();
+                default: return new StandardBall();
+            }
+        }
+
+        private GameState BuildGameState()
+        {
+            GameState state = new GameState();
+            state.Player1Racket = GetRacket(racket1ComboBox.SelectedIndex);
+            state.Player2Racket = GetRacket(racket2ComboBox.SelectedIndex);
+            state.Ball = GetBall(BallComboBox.SelectedIndex);
+            state.MaxScore = pointsComboBox.SelectedIndex == 0 ? 11 : 21;
+            state.IsMultiplayer = playersComboBox.SelectedIndex == 1;
+            state.SaveFolderPath = FolderPathBox.Text;
+            return state;
+        }
+
+        private void NewGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            GameState state = BuildGameState();
+            Window1 gameWindow = new Window1(state);
+            gameWindow.Show();
+            this.Hide();
+        }
+
+        private void ContinueGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Загрузка сохранения будет добавлена позже!");
         }
     }
 }

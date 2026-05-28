@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,10 +49,10 @@
     <Compile Include="Core\Balls\HeavyBall.cs" />
     <Compile Include="Core\Balls\StandardBall.cs" />
     <Compile Include="Core\GameEngine.cs" />
-    <Compile Include="Core\GameEngine.Victory.cs" />
+    <Compile Include="Core\GameEngineVictory.cs" />
     <Compile Include="Core\GameField.cs" />
     <Compile Include="Core\GameState.cs" />
-    <Compile Include="Core\GameState.Multiplayer.cs" />
+    <Compile Include="Core\GameStateMultiplayer.cs" />
     <Compile Include="Core\Interfaces\IBall.cs" />
     <Compile Include="Core\Interfaces\IGameField.cs" />
     <Compile Include="Core\Interfaces\IRacket.cs" />
@@ -64,8 +65,6 @@
     <Compile Include="Data\XmlSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Rackets\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
