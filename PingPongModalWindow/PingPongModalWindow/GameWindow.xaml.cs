@@ -1,12 +1,14 @@
 ﻿using Model.Core;
 using Model.Core.Abstract;
 using Model.Core.Interfaces;
+using Model.Data;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using System.IO;
 
 namespace PingPongModalWindow
 {
@@ -143,6 +145,15 @@ namespace PingPongModalWindow
         {
             _engine.Stop();
             _renderTimer.Stop();
+
+            Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
+
+            if (string.IsNullOrEmpty(_state.SaveFolderPath))
+            {
+                _state.SaveFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"PingPongGame");
+            }
+
+            saveManager.Save(_state, _state.SaveFolderPath);
         }
     }
 }
