@@ -58,7 +58,10 @@ namespace Model.Core
             {
                 _ball.X = _field.Width / 2.0;
                 _ball.Y = _field.Height / 2.0;
-                _ball.Angle = 45;
+                if (ServerNumber == 1)
+                    _ball.Angle = 45;
+                else
+                    _ball.Angle = 135;
                 _ball.Speed = 5;
                 BallInPlay = true;
             }
@@ -74,8 +77,6 @@ namespace Model.Core
             if (!IsMultiplayer && BallInPlay)
                 MoveBot();
         }
-
-
 
         private void MoveBall()
         {
