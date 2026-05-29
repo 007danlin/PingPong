@@ -95,6 +95,11 @@ namespace PingPongModalWindow
         {
             MoveRackets();
 
+            if (_engine.ServerNumber == 1)
+                tbServer.Text = "Подаёт: Игрок 1";
+            else
+                tbServer.Text = "Подаёт: Игрок 2";
+
             Canvas.SetLeft(leftRacket, _state.Player1Racket.X);
             Canvas.SetTop(leftRacket, _state.Player1Racket.Y);
             Canvas.SetLeft(rightRacket, _state.Player2Racket.X);

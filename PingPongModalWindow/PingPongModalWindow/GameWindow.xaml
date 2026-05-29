@@ -18,6 +18,7 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
 				<ColumnDefinition/>
+                <ColumnDefinition/>
 			</Grid.ColumnDefinitions>
 
 			<TextBlock x:Name="tbPlayer1"
@@ -27,8 +28,15 @@
                        FontWeight="Bold"
                        HorizontalAlignment="Left"/>
 
-			<TextBlock x:Name="tbPlayer2"
+            <TextBlock x:Name="tbServer"
                        Grid.Column="1"
+                       Text="Подаёт: Игрок 1"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"/> 
+
+            <TextBlock x:Name="tbPlayer2"
+                       Grid.Column="2"
                        Text="Игрок 2: 0"
                        FontSize="20"
                        FontWeight="Bold"
