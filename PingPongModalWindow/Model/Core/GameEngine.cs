@@ -18,6 +18,8 @@ namespace Model.Core
         public int ScorePlayer2 { get; private set; }
         public bool IsRunning { get; private set; }
         public bool BallInPlay { get; private set; }
+        public int ServerNumber { get; private set; } = 1;
+        public int ServeCount { get; private set; }
 
         // Делегат отвечает за забитое очко
         public Action<int, int> OnScoreChanged { get; set; }
@@ -141,6 +143,7 @@ namespace Model.Core
             if (_ball.X < 0)
             {
                 ScorePlayer2++;
+                CheckServingPlayer();
                 BallInPlay = false;
                 _ball.X = _field.Width / 2.0;
                 _ball.Y = _field.Height / 2.0;
@@ -150,12 +153,38 @@ namespace Model.Core
             else if (_ball.X > _field.Width)
             {
                 ScorePlayer1++;
+                CheckServingPlayer();
                 BallInPlay = false;
                 _ball.X = _field.Width / 2.0;
                 _ball.Y = _field.Height / 2.0;
                 OnScoreChanged?.Invoke(ScorePlayer1, ScorePlayer2);
                 CheckVictory();
             }
+        }
+
+        private void CheckServingPlayer()
+        {
+            ServeCount++;
+
+            if (MaxScore == 11 && ServeCount == 2)
+            {
+                ChangeServer();
+                ServeCount = 0;
+            }
+
+            if (MaxScore == 21 && ServeCount == 5)
+            {
+                ChangeServer();
+                ServeCount = 0;
+            }
+        }
+
+        private void ChangeServer()
+        {
+            if (ServerNumber == 1)
+                ServerNumber = 2;
+            else
+                ServerNumber = 1;
         }
     }
 }
