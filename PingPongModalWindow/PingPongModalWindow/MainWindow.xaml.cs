@@ -3,8 +3,10 @@ using Model.Core;
 using Model.Core.Abstract;
 using Model.Core.Balls;
 using Model.Core.Rackets;
-using System.Windows;
+using System;
 using System.IO;
+using System.Windows;
+using static System.Windows.Forms.AxHost;
 
 namespace PingPongModalWindow
 {
@@ -22,7 +24,7 @@ namespace PingPongModalWindow
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 FolderPathBox.Text = dialog.SelectedPath;
-                string savePath = Path.Combine(dialog.SelectedPath, "save.json");
+                string savePath = Path.Combine(dialog.SelectedPath, "pingpong.json");
                 ContinueGameButton.IsEnabled = File.Exists(savePath);
             }
         }
@@ -70,7 +72,24 @@ namespace PingPongModalWindow
 
         private void ContinueGameButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Загрузка сохранения будет добавлена позже!");
+            Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
+
+            GameState state = saveManager.Load(FolderPathBox.Text);
+
+            if (state == null)
+            {
+                MessageBox.Show("Не удалось найти сохраненную игру");
+                return;
+            }
+
+            state.Player1Racket = GetRacket(racket1ComboBox.SelectedIndex);
+            state.Player2Racket = GetRacket(racket2ComboBox.SelectedIndex);
+            state.Ball = GetBall(BallComboBox.SelectedIndex);
+            state.SaveFolderPath = FolderPathBox.Text;
+
+            Window1 gameWindow = new Window1(state);
+            gameWindow.Show();
+            this.Hide();
         }
     }
 }
