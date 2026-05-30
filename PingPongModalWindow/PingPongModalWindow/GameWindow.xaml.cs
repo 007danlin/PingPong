@@ -80,16 +80,49 @@ namespace PingPongModalWindow
                 });
             };
 
+
+
+            // ------------------- Сохранить результат по завершии программы --------------------
+
+            //_engine.OnGameOver = (winner) =>
+            //{
+            //    Dispatcher.Invoke(() =>
+            //    {
+            //        MessageBox.Show($"{winner} победил!");
+
+            //        _engine.ResetGame();
+            //        _state.ScorePlayer1 = 0;
+            //        _state.ScorePlayer2 = 0;
+
+            //        Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
+            //        if (!string.IsNullOrEmpty(_state.SaveFolderPath))
+            //            saveManager.Save(_state, _state.SaveFolderPath, _state.SaveFormat ?? "JSON");
+
+            //        tbPlayer1.Text = "Игрок 1: 0";
+            //        tbPlayer2.Text = "Игрок 2: 0";
+            //    });
+            //};
+
+            // ------------------- Удалить результат по завершии программы --------------------
             _engine.OnGameOver = (winner) =>
             {
                 Dispatcher.Invoke(() =>
                 {
                     MessageBox.Show($"{winner} победил!");
-                    _engine.ResetGame();
-                    tbPlayer1.Text = "Игрок 1: 0";
-                    tbPlayer2.Text = "Игрок 2: 0";
+
+                    string format = _state.SaveFormat ?? "JSON";
+                    string fileName = format == "XML" ? "pingpong.xml" : "pingpong.json";
+                    string filePath = System.IO.Path.Combine(_state.SaveFolderPath ?? "", fileName);
+                    if (System.IO.File.Exists(filePath))
+                        System.IO.File.Delete(filePath);
+
+                    _gameOverHandled = true;
+                    var mainWindow = new MainWindow();
+                    mainWindow.Show();
+                    this.Close();
                 });
             };
+
 
             _renderTimer = new DispatcherTimer();
             _renderTimer.Interval = TimeSpan.FromMilliseconds(16);
@@ -98,6 +131,8 @@ namespace PingPongModalWindow
 
             _engine.Start();
         }
+
+     
 
         private void RenderFrame(object sender, EventArgs e)
         {
@@ -149,6 +184,8 @@ namespace PingPongModalWindow
             _pressedKeys.Add(e.Key);
             if (e.Key == Key.Space)
                 _engine.Serve();
+            if (e.Key == Key.Escape)
+                this.Close();
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e)
@@ -156,19 +193,26 @@ namespace PingPongModalWindow
             _pressedKeys.Remove(e.Key);
         }
 
+        private bool _gameOverHandled = false;
+
+        // Закрытие старого окна
         private void OnWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _engine.Stop();
             _renderTimer.Stop();
 
+            if (_gameOverHandled) return;
+
             Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
 
             if (string.IsNullOrEmpty(_state.SaveFolderPath))
-            {
-                _state.SaveFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"PingPongGame");
-            }
+                _state.SaveFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "PingPongGame");
 
-            saveManager.Save(_state, _state.SaveFolderPath);
+            saveManager.Save(_state, _state.SaveFolderPath, _state.SaveFormat ?? "JSON");
+
+            var mainWindow = new MainWindow(_state.SaveFolderPath, _state.SaveFormat ?? "JSON");
+            mainWindow.Show();
         }
+
     }
 }

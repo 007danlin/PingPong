@@ -18,13 +18,25 @@ namespace PingPongModalWindow
             ContinueGameButton.IsEnabled = false;
         }
 
+        // Включение кнпопки продолжить игру после паузы
+        public MainWindow(string folderPath, string format) : this()
+        {
+            FolderPathBox.Text = folderPath;
+            string fileName = format == "XML" ? "pingpong.xml" : "pingpong.json";
+            string savePath = Path.Combine(folderPath, fileName);
+            ContinueGameButton.IsEnabled = File.Exists(savePath);
+            SaveFormatComboBox.SelectedIndex = format == "XML" ? 1 : 0;
+        }
+
         private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 FolderPathBox.Text = dialog.SelectedPath;
-                string savePath = Path.Combine(dialog.SelectedPath, "pingpong.json");
+                string format = SaveFormatComboBox.SelectedIndex == 1 ? "XML" : "JSON";
+                string fileName = format == "XML" ? "pingpong.xml" : "pingpong.json";
+                string savePath = Path.Combine(dialog.SelectedPath, fileName);
                 ContinueGameButton.IsEnabled = File.Exists(savePath);
             }
         }
@@ -65,6 +77,7 @@ namespace PingPongModalWindow
         private void NewGameButton_Click(object sender, RoutedEventArgs e)
         {
             GameState state = BuildGameState();
+            state.SaveFormat = SaveFormatComboBox.SelectedIndex == 1 ? "XML" : "JSON";
             Window1 gameWindow = new Window1(state);
             gameWindow.Show();
             this.Hide();
@@ -73,20 +86,18 @@ namespace PingPongModalWindow
         private void ContinueGameButton_Click(object sender, RoutedEventArgs e)
         {
             Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
-
-            GameState state = saveManager.Load(FolderPathBox.Text);
-
+            string format = SaveFormatComboBox.SelectedIndex == 1 ? "XML" : "JSON";
+            GameState state = saveManager.Load(FolderPathBox.Text, format);
             if (state == null)
             {
                 MessageBox.Show("Не удалось найти сохраненную игру");
                 return;
             }
-
             state.Player1Racket = GetRacket(racket1ComboBox.SelectedIndex);
             state.Player2Racket = GetRacket(racket2ComboBox.SelectedIndex);
             state.Ball = GetBall(BallComboBox.SelectedIndex);
             state.SaveFolderPath = FolderPathBox.Text;
-
+            state.SaveFormat = format;
             Window1 gameWindow = new Window1(state);
             gameWindow.Show();
             this.Hide();
