@@ -1,12 +1,74 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Model.Core;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Model.Data
 {
     public class XmlSerializer
     {
+        public void Serialize(GameState state, string folderPath)
+        {
+            string filePath = Path.Combine(folderPath, "pingpong.xml");
+            var dto = new GameStateDTO(state);
+            var serializer = new System.Xml.Serialization.XmlSerializer(typeof(GameStateDTO));
+            using var writer = new StreamWriter(filePath);
+            serializer.Serialize(writer, dto);
+            writer.Close();
+        }
+
+        public GameState Deserialize(string folderPath)
+        {
+            string filePath = Path.Combine(folderPath, "pingpong.xml");
+            if (!File.Exists(filePath))
+                return null;
+            var serializer = new System.Xml.Serialization.XmlSerializer(typeof(GameStateDTO));
+            using var reader = new StreamReader(filePath);
+            var dto = (GameStateDTO)serializer.Deserialize(reader);
+            reader.Close();
+            return dto.ToGameState();
+        }
+
+        public bool CanLoad(string folderPath)
+        {
+            string filePath = Path.Combine(folderPath, "pingpong.xml");
+            return File.Exists(filePath);
+        }
+
+        public class GameStateDTO
+        {
+            public int ScorePlayer1 { get; set; }
+            public int ScorePlayer2 { get; set; }
+            public int MaxScore { get; set; }
+            public bool IsMultiplayer { get; set; }
+            public string Player1Name { get; set; }
+            public string Player2Name { get; set; }
+            public int ServerNumber { get; set; }
+
+            public GameStateDTO() { }
+
+            public GameStateDTO(GameState state)
+            {
+                ScorePlayer1 = state.ScorePlayer1;
+                ScorePlayer2 = state.ScorePlayer2;
+                MaxScore = state.MaxScore;
+                IsMultiplayer = state.IsMultiplayer;
+                Player1Name = state.Player1Name;
+                Player2Name = state.Player2Name;
+                ServerNumber = state.ServerNumber;
+            }
+
+            public GameState ToGameState()
+            {
+                GameState state = new GameState();
+                state.ScorePlayer1 = ScorePlayer1;
+                state.ScorePlayer2 = ScorePlayer2;
+                state.MaxScore = MaxScore;
+                state.IsMultiplayer = IsMultiplayer;
+                state.Player1Name = Player1Name;
+                state.Player2Name = Player2Name;
+                state.ServerNumber = ServerNumber;
+                return state;
+            }
+        }
     }
 }
