@@ -52,6 +52,12 @@ namespace Model.Core
             _timer.Stop();
         }
 
+        public void SetScore(int player1Score, int player2Score)
+        {
+            ScorePlayer1 = player1Score;
+            ScorePlayer2 = player2Score;
+        }
+
         public void Serve()
         {
             if (!BallInPlay)

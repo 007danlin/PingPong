@@ -60,11 +60,18 @@ namespace PingPongModalWindow
                 _state.Player2Racket
             );
 
+            tbPlayer1.Text = $"Игрок 1: {_state.ScorePlayer1}";
+            tbPlayer2.Text = $"Игрок 2: {_state.ScorePlayer2}";
+
             _engine.MaxScore = _state.MaxScore;
             _engine.IsMultiplayer = _state.IsMultiplayer;
+            _engine.SetScore(_state.ScorePlayer1, _state.ScorePlayer2);
 
             _engine.OnScoreChanged = (s1, s2) =>
             {
+                _state.ScorePlayer1 = s1;
+                _state.ScorePlayer2 = s2;
+
                 Dispatcher.Invoke(() =>
                 {
                     tbPlayer1.Text = $"Игрок 1: {s1}";
