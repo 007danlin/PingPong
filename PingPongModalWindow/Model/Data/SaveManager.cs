@@ -1,35 +1,41 @@
 ﻿using Model.Core;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model.Data
 {
     public class SaveManager
     {
-        private JsonSerializer jsonSerializer = new JsonSerializer();
+        private JsonSerializer _jsonSerializer = new JsonSerializer();
+        private XmlSerializer _xmlSerializer = new XmlSerializer();
 
-        public void Save(GameState state, string folderPath)
+        public void Save(GameState state, string folderPath, string format = "JSON")
         {
             if (!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
 
-            jsonSerializer.Serialize(state, folderPath);
+            if (format == "XML")
+                _xmlSerializer.Serialize(state, folderPath);
+            else
+                _jsonSerializer.Serialize(state, folderPath);
         }
 
-        public GameState Load(string folderPath)
+        public GameState Load(string folderPath, string format = "JSON")
         {
-            return jsonSerializer.Deserialize(folderPath);
+            if (format == "XML")
+                return _xmlSerializer.Deserialize(folderPath);
+            else
+                return _jsonSerializer.Deserialize(folderPath);
         }
 
-        public bool CanLoad(string folderPath)
+        public bool CanLoad(string folderPath, string format = "JSON")
         {
-            string filePath = Path.Combine(folderPath, "pingpong.json");
-
-            return File.Exists(filePath);
+            if (format == "XML")
+                return _xmlSerializer.CanLoad(folderPath);
+            else
+            {
+                string filePath = Path.Combine(folderPath, "pingpong.json");
+                return File.Exists(filePath);
+            }
         }
     }
 }

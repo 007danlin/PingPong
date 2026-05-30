@@ -28,7 +28,7 @@
             else if (playerNumber == 2)
                 Player2Ready = true;
         }
-
+        
         public string GetWinner()
         {
             if (ScorePlayer1 > ScorePlayer2)

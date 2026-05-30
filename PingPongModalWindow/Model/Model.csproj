@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Core\Abstract\BallBase.cs" />
     <Compile Include="Core\Abstract\RacketBase.cs" />
-    <Compile Include="Core\Abstract\SerializerBase.cs" />
     <Compile Include="Core\Balls\FastBall.cs" />
     <Compile Include="Core\Balls\HeavyBall.cs" />
     <Compile Include="Core\Balls\StandardBall.cs" />

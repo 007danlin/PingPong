@@ -13,6 +13,7 @@ namespace Model.Core
         public string SaveFolderPath { get; set; }
         public bool IsMultiplayer { get; set; }
         public int ServerNumber { get; set; }
+        public string SaveFormat { get; set; } = "JSON";
 
         public GameState()
         {

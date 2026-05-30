@@ -11,9 +11,8 @@ namespace Model.Data
             string filePath = Path.Combine(folderPath, "pingpong.xml");
             var dto = new GameStateDTO(state);
             var serializer = new System.Xml.Serialization.XmlSerializer(typeof(GameStateDTO));
-            using var writer = new StreamWriter(filePath);
-            serializer.Serialize(writer, dto);
-            writer.Close();
+            using (var writer = new StreamWriter(filePath))
+                serializer.Serialize(writer, dto);
         }
 
         public GameState Deserialize(string folderPath)
@@ -22,10 +21,11 @@ namespace Model.Data
             if (!File.Exists(filePath))
                 return null;
             var serializer = new System.Xml.Serialization.XmlSerializer(typeof(GameStateDTO));
-            using var reader = new StreamReader(filePath);
-            var dto = (GameStateDTO)serializer.Deserialize(reader);
-            reader.Close();
-            return dto.ToGameState();
+            using (var reader = new StreamReader(filePath))
+            {
+                var dto = (GameStateDTO)serializer.Deserialize(reader);
+                return dto.ToGameState();
+            }
         }
 
         public bool CanLoad(string folderPath)
