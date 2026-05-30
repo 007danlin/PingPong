@@ -24,6 +24,7 @@ namespace Model.Data
                 [nameof(GameState.IsMultiplayer)] = state.IsMultiplayer,
                 [nameof(GameState.Player1Name)] = state.Player1Name,
                 [nameof(GameState.Player2Name)] = state.Player2Name,
+                [nameof(GameState.ServerNumber)] = state.ServerNumber,
             };
 
             File.WriteAllText(filePath, jObject.ToString());
@@ -47,6 +48,7 @@ namespace Model.Data
             state.IsMultiplayer = jObject[nameof(GameState.IsMultiplayer)].Value<bool>();
             state.Player1Name = jObject[nameof(GameState.Player1Name)].Value<string>();
             state.Player2Name = jObject[nameof(GameState.Player2Name)].Value<string>();
+            state.ServerNumber = jObject[nameof(GameState.ServerNumber)].Value<int>();
 
             return state;
         }

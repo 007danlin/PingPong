@@ -12,6 +12,7 @@ namespace Model.Core
         public int MaxScore { get; set; }
         public string SaveFolderPath { get; set; }
         public bool IsMultiplayer { get; set; }
+        public int ServerNumber { get; set; }
 
         public GameState()
         {

@@ -58,6 +58,11 @@ namespace Model.Core
             ScorePlayer2 = player2Score;
         }
 
+        public void SetServer(int serverNumber)
+        {
+            ServerNumber = serverNumber;
+        }
+
         public void Serve()
         {
             if (!BallInPlay)

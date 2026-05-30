@@ -66,6 +66,7 @@ namespace PingPongModalWindow
             _engine.MaxScore = _state.MaxScore;
             _engine.IsMultiplayer = _state.IsMultiplayer;
             _engine.SetScore(_state.ScorePlayer1, _state.ScorePlayer2);
+            _engine.SetServer(_state.ServerNumber);
 
             _engine.OnScoreChanged = (s1, s2) =>
             {
@@ -106,6 +107,8 @@ namespace PingPongModalWindow
                 tbServer.Text = "Подаёт: Игрок 1";
             else
                 tbServer.Text = "Подаёт: Игрок 2";
+
+            _state.ServerNumber = _engine.ServerNumber;
 
             Canvas.SetLeft(leftRacket, _state.Player1Racket.X);
             Canvas.SetTop(leftRacket, _state.Player1Racket.Y);
