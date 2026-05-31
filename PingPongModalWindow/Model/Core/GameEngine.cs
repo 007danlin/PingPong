@@ -70,10 +70,15 @@ namespace Model.Core
                 _ball.X = _field.Width / 2.0;
                 _ball.Y = _field.Height / 2.0;
                 if (ServerNumber == 1)
+                {
                     _ball.Angle = 45;
+                    _ball.Speed = _player1Racket.ServePower;
+                }
                 else
+                {
                     _ball.Angle = 135;
-                _ball.Speed = 5;
+                    _ball.Speed = _player2Racket.ServePower;
+                }
                 BallInPlay = true;
             }
         }
@@ -137,6 +142,7 @@ namespace Model.Core
                 _ball.X = _player1Racket.X + _player1Racket.Width;
                 _ball.Bounce(true);
                 _ball.Speed += _player1Racket.Power * 0.05;
+                _ball.Angle += _player1Racket.Spin;
             }
 
             if (_ball.X + _ball.Radius * 2 >= _player2Racket.X &&
@@ -147,6 +153,7 @@ namespace Model.Core
                 _ball.X = _player2Racket.X - _ball.Radius * 2;
                 _ball.Bounce(true);
                 _ball.Speed += _player2Racket.Power * 0.05;
+                _ball.Angle -= _player2Racket.Spin;
             }
         }
 

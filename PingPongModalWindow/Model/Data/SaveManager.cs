@@ -5,8 +5,8 @@ namespace Model.Data
 {
     public class SaveManager
     {
-        private JsonSerializer _jsonSerializer = new JsonSerializer();
-        private XmlSerializer _xmlSerializer = new XmlSerializer();
+        private SerializerBase _jsonSerializer = new JsonSerializer();
+        private SerializerBase _xmlSerializer = new XmlSerializer();
 
         public void Save(GameState state, string folderPath, string format = "JSON")
         {

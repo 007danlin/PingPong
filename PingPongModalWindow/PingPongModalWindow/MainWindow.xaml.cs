@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Windows;
 using static System.Windows.Forms.AxHost;
+using Model.Data;
 
 namespace PingPongModalWindow
 {
@@ -37,7 +38,8 @@ namespace PingPongModalWindow
                 string format = SaveFormatComboBox.SelectedIndex == 1 ? "XML" : "JSON";
                 string fileName = format == "XML" ? "pingpong.xml" : "pingpong.json";
                 string savePath = Path.Combine(dialog.SelectedPath, fileName);
-                ContinueGameButton.IsEnabled = File.Exists(savePath);
+                Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
+                ContinueGameButton.IsEnabled = saveManager.CanLoad(dialog.SelectedPath, format);
             }
         }
 
@@ -58,6 +60,7 @@ namespace PingPongModalWindow
             {
                 case 0: return new StandardBall();
                 case 1: return new HeavyBall();
+                case 2: return new FastBall();
                 default: return new StandardBall();
             }
         }

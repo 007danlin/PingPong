@@ -10,9 +10,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Model.Data
 {
-    public class JsonSerializer
+    public class JsonSerializer: SerializerBase
     {
-        public void Serialize(GameState state, string folderPath)
+        public override void Serialize(GameState state, string folderPath)
         {
             string filePath = Path.Combine(folderPath, "pingpong.json");
 
@@ -30,7 +30,7 @@ namespace Model.Data
             File.WriteAllText(filePath, jObject.ToString());
         }
 
-        public GameState Deserialize(string folderPath)
+        public override GameState Deserialize(string folderPath)
         {
             string filePath = Path.Combine(folderPath, "pingpong.json");
 
@@ -51,6 +51,23 @@ namespace Model.Data
             state.ServerNumber = jObject[nameof(GameState.ServerNumber)].Value<int>();
 
             return state;
+        }
+
+        public override bool CanLoad(string folderPath)
+        {
+            try
+            {
+                GameState state = Deserialize(folderPath);
+
+                if (state == null)
+                    return false;
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

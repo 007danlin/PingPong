@@ -4,9 +4,9 @@ using System.Xml.Serialization;
 
 namespace Model.Data
 {
-    public class XmlSerializer
+    public class XmlSerializer: SerializerBase
     {
-        public void Serialize(GameState state, string folderPath)
+        public override void Serialize(GameState state, string folderPath)
         {
             string filePath = Path.Combine(folderPath, "pingpong.xml");
             var dto = new GameStateDTO(state);
@@ -15,7 +15,7 @@ namespace Model.Data
                 serializer.Serialize(writer, dto);
         }
 
-        public GameState Deserialize(string folderPath)
+        public override GameState Deserialize(string folderPath)
         {
             string filePath = Path.Combine(folderPath, "pingpong.xml");
             if (!File.Exists(filePath))
@@ -28,10 +28,21 @@ namespace Model.Data
             }
         }
 
-        public bool CanLoad(string folderPath)
+        public override bool CanLoad(string folderPath)
         {
-            string filePath = Path.Combine(folderPath, "pingpong.xml");
-            return File.Exists(filePath);
+            try
+            {
+                GameState state = Deserialize(folderPath);
+
+                if (state == null)
+                    return false;
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public class GameStateDTO

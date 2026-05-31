@@ -58,6 +58,7 @@
             <ComboBox x:Name="BallComboBox" Width="170" Height="28" SelectedIndex="0">
                 <ComboBoxItem Content="Стандартный"/>
                 <ComboBoxItem Content="Тяжелый"/>
+                <ComboBoxItem Content="Быстрый"/>
             </ComboBox>
 
             <TextBlock Text="Формат:" Width="90" FontSize="16" Margin="35,0,0,0" VerticalAlignment="Center"/>
