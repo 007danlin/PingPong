@@ -80,47 +80,25 @@ namespace PingPongModalWindow
                 });
             };
 
-
-
-            // ------------------- Сохранить результат по завершии программы --------------------
-
-            //_engine.OnGameOver = (winner) =>
-            //{
-            //    Dispatcher.Invoke(() =>
-            //    {
-            //        MessageBox.Show($"{winner} победил!");
-
-            //        _engine.ResetGame();
-            //        _state.ScorePlayer1 = 0;
-            //        _state.ScorePlayer2 = 0;
-
-            //        Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
-            //        if (!string.IsNullOrEmpty(_state.SaveFolderPath))
-            //            saveManager.Save(_state, _state.SaveFolderPath, _state.SaveFormat ?? "JSON");
-
-            //        tbPlayer1.Text = "Игрок 1: 0";
-            //        tbPlayer2.Text = "Игрок 2: 0";
-            //    });
-            //};
-
-            // ------------------- Удалить результат по завершии программы --------------------
             _engine.OnGameOver = (winner) =>
             {
                 Dispatcher.Invoke(() =>
                 {
                     MessageBox.Show($"{winner} победил!");
 
-                    string format = _state.SaveFormat ?? "JSON";
-                    string fileName = format == "XML" ? "pingpong.xml" : "pingpong.json";
-                    string filePath = System.IO.Path.Combine(_state.SaveFolderPath ?? "", fileName);
-                    if (System.IO.File.Exists(filePath))
-                        System.IO.File.Delete(filePath);
+                    _engine.ResetGame();
+                    _state.ScorePlayer1 = 0;
+                    _state.ScorePlayer2 = 0;
 
-                    _gameOverHandled = true;
-                    var mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    this.Close();
+                    Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
+                    if (!string.IsNullOrEmpty(_state.SaveFolderPath))
+                        saveManager.Save(_state, _state.SaveFolderPath, _state.SaveFormat ?? "JSON");
+
+                    tbPlayer1.Text = "Игрок 1: 0";
+                    tbPlayer2.Text = "Игрок 2: 0";
                 });
+
+                _engine.Start();
             };
 
 
