@@ -64,7 +64,7 @@
     <Compile Include="Core\Rackets\WoodenRacket.cs" />
     <Compile Include="Data\JsonSerializer.cs" />
     <Compile Include="Data\SaveManager.cs" />
-    <Compile Include="Data\SerializerBase.cs" />
+    <Compile Include="Core\Abstract\SerializerBase.cs" />
     <Compile Include="Data\XmlSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
