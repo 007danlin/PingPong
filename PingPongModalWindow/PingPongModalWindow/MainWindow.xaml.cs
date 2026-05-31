@@ -46,8 +46,11 @@ namespace PingPongModalWindow
                 bool canLoad = saveManager.CanLoad(dialog.SelectedPath, format);
                 ContinueGameButton.IsEnabled = canLoad;
 
-                if (!canLoad)
-                    MessageBox.Show("Файла игры нет/файл с ошибкой");
+                string fileName = format == "XML" ? "pingpong.xml" : "pingpong.json";
+                string filePath = Path.Combine(dialog.SelectedPath, fileName);
+
+                if (!canLoad && File.Exists(filePath))
+                    MessageBox.Show("Файл с ошибкой");
             }
         }
 
@@ -70,8 +73,10 @@ namespace PingPongModalWindow
                 saveManager.ChangeFormat(FolderPathBox.Text, currentFormat, newFormat);
                 bool canLoad = saveManager.CanLoad(FolderPathBox.Text, newFormat);
                 ContinueGameButton.IsEnabled = canLoad;
-                if (!canLoad)
-                    MessageBox.Show("Файла игры нет/файл с ошибкой");
+                string fileName = newFormat == "XML" ? "pingpong.xml" : "pingpong.json";
+                string filePath = Path.Combine(FolderPathBox.Text, fileName);
+                if (!canLoad && File.Exists(filePath))
+                    MessageBox.Show("Файл с ошибкой");
             }
 
             currentFormat = newFormat;
