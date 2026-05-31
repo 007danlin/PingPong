@@ -41,9 +41,13 @@ namespace PingPongModalWindow
             {
                 FolderPathBox.Text = dialog.SelectedPath;
                 string format = SaveFormatComboBox.SelectedIndex == 1 ? "XML" : "JSON";
-       
+
                 Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
-                ContinueGameButton.IsEnabled = saveManager.CanLoad(dialog.SelectedPath, format);
+                bool canLoad = saveManager.CanLoad(dialog.SelectedPath, format);
+                ContinueGameButton.IsEnabled = canLoad;
+
+                if (!canLoad)
+                    MessageBox.Show("Файла игры нет/файл с ошибкой");
             }
         }
 
@@ -64,8 +68,10 @@ namespace PingPongModalWindow
                 SaveManager saveManager = new SaveManager();
 
                 saveManager.ChangeFormat(FolderPathBox.Text, currentFormat, newFormat);
-
-                ContinueGameButton.IsEnabled = saveManager.CanLoad(FolderPathBox.Text, newFormat);
+                bool canLoad = saveManager.CanLoad(FolderPathBox.Text, newFormat);
+                ContinueGameButton.IsEnabled = canLoad;
+                if (!canLoad)
+                    MessageBox.Show("Файла игры нет/файл с ошибкой");
             }
 
             currentFormat = newFormat;
