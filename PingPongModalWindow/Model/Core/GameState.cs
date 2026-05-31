@@ -48,6 +48,7 @@ namespace Model.Core
             return !(a == b);
         }
 
+        // Переопределние метода Equals,  так как добавили перегрузку оперетора == 
         public override bool Equals(object obj)
         {
             if (obj is GameState other)
@@ -55,6 +56,7 @@ namespace Model.Core
             return false;
         }
 
+        // Добавляем одинаковый хеш, чтобы все работало корректно после переопредления
         public override int GetHashCode()
         {
             return ScorePlayer1.GetHashCode() ^ ScorePlayer2.GetHashCode();
