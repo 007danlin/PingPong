@@ -33,7 +33,7 @@ namespace Model.Core
             _player1Racket = player1;
             _player2Racket = player2;
             // +- 60fps
-            _timer = new Timer(16);
+            _timer = new Timer(12);
             _timer.Elapsed += Update;
             // перезапуск
             _timer.AutoReset = true;
