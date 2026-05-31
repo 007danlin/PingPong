@@ -72,12 +72,12 @@ namespace Model.Core
                 if (ServerNumber == 1)
                 {
                     _ball.Angle = 45;
-                    _ball.Speed = _player1Racket.ServePower;
+                    _ball.Speed = _player1Racket.ServePower + _ball.InitialSpeed;
                 }
                 else
                 {
                     _ball.Angle = 135;
-                    _ball.Speed = _player2Racket.ServePower;
+                    _ball.Speed = _player2Racket.ServePower + _ball.InitialSpeed;
                 }
                 BallInPlay = true;
             }

@@ -12,6 +12,8 @@ namespace Model.Core.Abstract
         public double X { get; set; }
         public double Y { get; set; }
 
+        public virtual double InitialSpeed { get; protected set; }
+
         public double Radius
         {
             get 

@@ -7,6 +7,7 @@ namespace Model.Core.Balls
         public FastBall()
         {
             Speed = 7;
+            InitialSpeed = 4;
             Angle = 0;
             Radius = 8;
         }

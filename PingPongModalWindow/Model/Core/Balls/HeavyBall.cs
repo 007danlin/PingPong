@@ -7,6 +7,7 @@ namespace Model.Core.Balls
         public HeavyBall()
         {
             Speed = 4;
+            InitialSpeed = 1;
             Angle = 0;
             Radius = 11;
         }

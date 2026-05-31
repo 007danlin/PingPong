@@ -15,6 +15,7 @@ namespace Model.Core.Interfaces
         double Y { get; set; }
 
         double Radius { get; }
+        double InitialSpeed { get; }
 
         void Bounce(bool fromVertical);
     }
