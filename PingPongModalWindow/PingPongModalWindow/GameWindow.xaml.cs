@@ -103,7 +103,7 @@ namespace PingPongModalWindow
 
 
             _renderTimer = new DispatcherTimer();
-            _renderTimer.Interval = TimeSpan.FromMilliseconds(16);
+            _renderTimer.Interval = TimeSpan.FromMilliseconds(12);
             _renderTimer.Tick += RenderFrame;
             _renderTimer.Start();
 
