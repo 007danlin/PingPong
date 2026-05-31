@@ -23,9 +23,12 @@ namespace PingPongModalWindow
         public MainWindow(string folderPath, string format) : this()
         {
             FolderPathBox.Text = folderPath;
-            string fileName = format == "XML" ? "pingpong.xml" : "pingpong.json";
-            string savePath = Path.Combine(folderPath, fileName);
-            ContinueGameButton.IsEnabled = File.Exists(savePath);
+            SaveManager saveManager = new SaveManager();
+            if (saveManager.CanLoad(folderPath, format))
+                ContinueGameButton.IsEnabled = true;
+            else
+                ContinueGameButton.IsEnabled = false;
+
             SaveFormatComboBox.SelectedIndex = format == "XML" ? 1 : 0;
         }
 
@@ -36,8 +39,7 @@ namespace PingPongModalWindow
             {
                 FolderPathBox.Text = dialog.SelectedPath;
                 string format = SaveFormatComboBox.SelectedIndex == 1 ? "XML" : "JSON";
-                string fileName = format == "XML" ? "pingpong.xml" : "pingpong.json";
-                string savePath = Path.Combine(dialog.SelectedPath, fileName);
+       
                 Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
                 ContinueGameButton.IsEnabled = saveManager.CanLoad(dialog.SelectedPath, format);
             }
