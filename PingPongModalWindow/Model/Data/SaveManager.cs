@@ -32,10 +32,20 @@ namespace Model.Data
             if (format == "XML")
                 return _xmlSerializer.CanLoad(folderPath);
             else
-            {
-                string filePath = Path.Combine(folderPath, "pingpong.json");
-                return File.Exists(filePath);
-            }
+                return _jsonSerializer.CanLoad(folderPath);
+        }
+
+        public void ChangeFormat(string folderPath, string oldFormat, string newFormat)
+        {
+            if (oldFormat == newFormat)
+                return;
+
+            if (!CanLoad(folderPath, oldFormat))
+                return;
+
+            GameState state = Load(folderPath, oldFormat);
+
+            Save(state, folderPath, newFormat);
         }
     }
 }

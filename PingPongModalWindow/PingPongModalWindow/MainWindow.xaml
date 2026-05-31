@@ -62,7 +62,7 @@
             </ComboBox>
 
             <TextBlock Text="Формат:" Width="90" FontSize="16" Margin="35,0,0,0" VerticalAlignment="Center"/>
-            <ComboBox x:Name="SaveFormatComboBox" Width="100" Height="28" SelectedIndex="0">
+            <ComboBox x:Name="SaveFormatComboBox" Width="100" Height="28" SelectedIndex="0" SelectionChanged="FormatChanged">
                 <ComboBoxItem Content="JSON"/>
                 <ComboBoxItem Content="XML"/>
             </ComboBox>

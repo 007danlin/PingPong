@@ -13,6 +13,7 @@ namespace PingPongModalWindow
 {
     public partial class MainWindow : Window
     {
+        private string currentFormat = "JSON";
         public MainWindow()
         {
             InitializeComponent();
@@ -22,6 +23,7 @@ namespace PingPongModalWindow
         // Включение кнпопки продолжить игру после паузы
         public MainWindow(string folderPath, string format) : this()
         {
+            currentFormat = format;
             FolderPathBox.Text = folderPath;
             SaveManager saveManager = new SaveManager();
             if (saveManager.CanLoad(folderPath, format))
@@ -43,6 +45,30 @@ namespace PingPongModalWindow
                 Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
                 ContinueGameButton.IsEnabled = saveManager.CanLoad(dialog.SelectedPath, format);
             }
+        }
+
+        private void FormatChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (FolderPathBox == null)
+                return;
+
+            string newFormat;
+
+            if (SaveFormatComboBox.SelectedIndex == 1)
+                newFormat = "XML";
+            else
+                newFormat = "JSON";
+
+            if (!string.IsNullOrEmpty(FolderPathBox.Text))
+            {
+                SaveManager saveManager = new SaveManager();
+
+                saveManager.ChangeFormat(FolderPathBox.Text, currentFormat, newFormat);
+
+                ContinueGameButton.IsEnabled = saveManager.CanLoad(FolderPathBox.Text, newFormat);
+            }
+
+            currentFormat = newFormat;
         }
 
         private RacketBase GetRacket(int index)
@@ -90,22 +116,31 @@ namespace PingPongModalWindow
 
         private void ContinueGameButton_Click(object sender, RoutedEventArgs e)
         {
-            Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
-            string format = SaveFormatComboBox.SelectedIndex == 1 ? "XML" : "JSON";
-            GameState state = saveManager.Load(FolderPathBox.Text, format);
-            if (state == null)
+            try
             {
-                MessageBox.Show("Не удалось найти сохраненную игру");
-                return;
+                Model.Data.SaveManager saveManager = new Model.Data.SaveManager();
+                string format = SaveFormatComboBox.SelectedIndex == 1 ? "XML" : "JSON";
+                GameState state = saveManager.Load(FolderPathBox.Text, format);
+                if (state == null)
+                {
+                    MessageBox.Show("Не удалось найти сохраненную игру");
+                    return;
+                }
+                state.Player1Racket = GetRacket(racket1ComboBox.SelectedIndex);
+                state.Player2Racket = GetRacket(racket2ComboBox.SelectedIndex);
+                state.Ball = GetBall(BallComboBox.SelectedIndex);
+                state.SaveFolderPath = FolderPathBox.Text;
+                state.SaveFormat = format;
+                Window1 gameWindow = new Window1(state);
+                gameWindow.Show();
+                this.Hide();
             }
-            state.Player1Racket = GetRacket(racket1ComboBox.SelectedIndex);
-            state.Player2Racket = GetRacket(racket2ComboBox.SelectedIndex);
-            state.Ball = GetBall(BallComboBox.SelectedIndex);
-            state.SaveFolderPath = FolderPathBox.Text;
-            state.SaveFormat = format;
-            Window1 gameWindow = new Window1(state);
-            gameWindow.Show();
-            this.Hide();
+            catch
+            {
+                MessageBox.Show("Файл с ошибкой, загрузка не возможна");
+                ContinueGameButton.IsEnabled = false;
+            }
+            
         }
     }
 }
